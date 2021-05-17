@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:vizilog/block/auth_block.dart';
 import 'package:vizilog/pages/signUp.dart';
 
 void main() {
@@ -10,12 +12,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Provider(
+      create: (context) => AuthBlock(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
       ),
-      home: MyHomePage(),
     );
   }
 }
@@ -28,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final authBlock = Provider.of<AuthBlock>(context);
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.tealAccent,
@@ -43,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 75,
+                    top: 70,
                   ),
                   child: Text(
                     'Welcome to VizLog',
@@ -62,7 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.indigo.shade900)),
-                        onPressed: () {},
+                        onPressed: () {
+                          authBlock.logInGoogle();
+                        },
                         padding: EdgeInsets.all(10.0),
                         color: Colors.indigo.shade900,
                         textColor: Colors.white,
