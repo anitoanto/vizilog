@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-
-import 'package:provider/provider.dart';
-import 'package:vizilog/block/auth_block.dart';
+import 'package:vizilog/service/auth_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,15 +10,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (context) => AuthBlock(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyHomePage(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(),
     );
   }
 }
@@ -80,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.deepPurple.shade900),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            signInWithGoogle();
+                          },
                           padding: EdgeInsets.all(6),
                         ),
                         Padding(
