@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vizilog/pages/signUp.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:vizilog/service/auth_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,84 +28,86 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.tealAccent,
-        body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage('images/signInbackground.jpeg'),
-            fit: BoxFit.cover,
-          )),
-          child: Container(
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      body: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 90,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 75,
-                  ),
+                Container(
+                  alignment: Alignment.centerLeft,
                   child: Text(
-                    'Welcome to VizLog',
+                    'Welcome to ViziLog',
                     style: TextStyle(
-                      fontSize: 30,
                       fontWeight: FontWeight.bold,
+                      fontSize: 30,
                     ),
                   ),
                 ),
-                Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 400),
-                      height: 50.0,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.indigo.shade900)),
-                        onPressed: () {},
-                        padding: EdgeInsets.all(10.0),
-                        color: Colors.indigo.shade900,
-                        textColor: Colors.white,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(FontAwesomeIcons.google),
-                            Text('    Sign In using google',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
+                Container(
+                  padding: EdgeInsets.only(top: 33),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 21),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          child: Text(
-                            'Not a member?',
-                            style: TextStyle(fontSize: 19),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUp()));
-                          },
-                        ),
+                      Image.asset(
+                        'assets/images/welcome.jpeg',
+                        width: 350,
                       )
                     ],
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        SignInButton(
+                          Buttons.Google,
+                          text: 'SIGN IN VIA GOOGLE',
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.deepPurple.shade900),
+                          ),
+                          onPressed: () {
+                            signInWithGoogle();
+                          },
+                          padding: EdgeInsets.all(6),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 18),
+                          child: Expanded(
+                            child: GestureDetector(
+                              child: Text(
+                                'Not a member?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyHomePage()));
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }
