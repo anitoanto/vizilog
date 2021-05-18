@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:vizilog/pages/signUp.dart';
 import 'package:vizilog/service/auth_service.dart';
 
 void main() {
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyHomePage()));
+                                        builder: (context) => SignUp()));
                               },
                             ),
                           ),
