@@ -1,35 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:vizilog/pages/home.dart';
+import 'package:vizilog/pages/signUp.dart';
 import 'package:vizilog/service/auth_service.dart';
 
-class SignUp extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade100,
-        shadowColor: Colors.grey.shade100,
-        foregroundColor: Colors.black,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.close,
-            size: 30,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(
-                context, MaterialPageRoute(builder: (context) => Home()));
-          },
-        ),
-      ),
       backgroundColor: Colors.grey.shade100,
       body: Row(
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              top: 60,
+              top: 90,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -37,7 +25,7 @@ class SignUp extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Sign Up',
+                    'Welcome to ViziLog',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -52,7 +40,7 @@ class SignUp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.asset(
-                        'assets/images/SU.jpg',
+                        'assets/images/welcome.jpeg',
                         width: 350,
                       )
                     ],
@@ -65,7 +53,7 @@ class SignUp extends StatelessWidget {
                       children: [
                         SignInButton(
                           Buttons.Google,
-                          text: 'SIGN UP VIA GOOGLE',
+                          text: 'SIGN IN VIA GOOGLE',
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.deepPurple.shade900),
@@ -76,11 +64,11 @@ class SignUp extends StatelessWidget {
                           padding: EdgeInsets.all(6),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 18, right: 10),
+                          padding: EdgeInsets.only(top: 18),
                           child: Expanded(
                             child: GestureDetector(
                               child: Text(
-                                'Already a member ? SignIn',
+                                'Not a member?',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16,
@@ -90,7 +78,7 @@ class SignUp extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Home()));
+                                        builder: (context) => SignUp()));
                               },
                             ),
                           ),
