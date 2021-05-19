@@ -14,3 +14,28 @@
   cursor: pointer;
   background-color: #1d61ce;
 }
+.adminNav {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+}
+.head {
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: auto;
+}
+
+.content img {
+  max-width: 80%;
+}
+
+.head2 {
+  margin-left: 10%;
+}
