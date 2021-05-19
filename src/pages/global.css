@@ -3,8 +3,12 @@ body,
 * {
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }
 .xcenter {
   display: grid;
   place-items: center;
+}
+.footer {
+  padding-bottom: 20px;
 }

@@ -1,16 +1,11 @@
 import React from "react";
 import * as index from "../styles/index.module.css";
 import "./global.css";
+import NavBar from "@components/NavBar/NavBar.js";
 export default function Index() {
   return (
     <div>
-      <nav className={index.nav}>
-        <ul>
-          <li>Home</li>
-          <li>Login</li>
-          <li>Github</li>
-        </ul>
-      </nav>
+      <NavBar />
       <div>
         <div className={index.content}>
           <div>
@@ -19,10 +14,14 @@ export default function Index() {
             <p>Use the app for registering your user with QR code.</p>
           </div>
           <div>
-            <img src={"/undraw_color__schemes_wv48.png"} alt="image" />
+            <img
+              src={"/undraw_color__schemes_wv48.png"}
+              alt="image"
+              className={index.indexImg}
+            />
           </div>
         </div>
-        <div className="xcenter">Build for Build From Home 2021</div>
+        <div className="xcenter footer">Build for Build From Home 2021</div>
       </div>
     </div>
   );

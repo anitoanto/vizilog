@@ -1,34 +1,20 @@
-.nav {
-  width: 100%;
-  background-color: #1e1e1e;
-}
-.nav > ul {
-  border: blanchedalmond;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 20px;
-  align-items: center;
-  width: 100%;
-}
-
-.nav > ul > li {
-  list-style: none;
-  color: white;
-  text-transform: uppercase;
-  transition: 0.4s;
-  padding: 12px 20px;
-  border-radius: 10px;
-}
-
-.nav > ul > li:hover {
-  background-color: #7480ff;
-  cursor: pointer;
-}
-
 .content {
   display: flex;
   flex-direction: row;
   padding: 1% 10%;
   align-items: center;
+}
+
+.indexImg {
+  width: 90%;
+}
+
+@media screen and (max-width: 800px) {
+  .nav > ul {
+    flex-direction: column;
+  }
+  .content {
+    flex-direction: column;
+    padding: 100px 40px;
+  }
 }

@@ -1,0 +1,16 @@
+.login {
+  margin-top: 5%;
+}
+
+.sgoogle {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  font-size: large;
+}
+.sgoogle:hover {
+  cursor: pointer;
+  background-color: #1d61ce;
+}
