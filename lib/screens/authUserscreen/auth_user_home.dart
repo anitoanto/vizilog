@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vizilog/screens/authUserscreen/auth_user-home_body.dart';
+import 'package:vizilog/screens/sidebarscreen/update_details.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -55,7 +56,10 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              onTap: null,
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UpdateDetails()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.view_list),
