@@ -49,14 +49,16 @@ class Body extends StatelessWidget {
                         blurRadius: 50,
                         color: Colors.white.withOpacity(0.23))
                   ]),
-                  child: RaisedButton(
-                    color: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.red,
+                    //color: Colors.red,
+                    //padding: EdgeInsets.symmetric(horizontal: 50),
+                    icon: Icon(Icons.qr_code_scanner),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    label: Text(
                       "Scan QR Code",
                       style: TextStyle(
                         fontSize: 15,
