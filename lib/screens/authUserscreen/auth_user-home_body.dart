@@ -11,12 +11,17 @@ class Body extends StatelessWidget {
           child: Stack(
             children: [
               Container(
+                padding: EdgeInsets.only(
+                  left: 20.0,
+                  right: 20.0,
+                  bottom: 36 + 20.0,
+                ),
                 height: size.height * 20 - 27,
                 decoration: BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(36),
-                    bottomRight: Radius.circular(36),
+                    bottomLeft: Radius.circular(90),
+                    bottomRight: Radius.circular(90),
                   ),
                 ),
                 child: Row(
@@ -30,7 +35,38 @@ class Body extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  height: 54,
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 50,
+                        color: Colors.white.withOpacity(0.23))
+                  ]),
+                  child: RaisedButton(
+                    color: Colors.red,
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Scan QR Code",
+                      style: TextStyle(
+                        fontSize: 15,
+                        letterSpacing: 2.2,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         )
