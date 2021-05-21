@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:vizilog/pages/signUp.dart';
-import 'package:vizilog/service/auth_service.dart';
+import 'package:vizilog/screens/signUp.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,9 +57,7 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(18.0),
                             side: BorderSide(color: Colors.deepPurple.shade900),
                           ),
-                          onPressed: () {
-                            signInWithGoogle();
-                          },
+                          onPressed: () {},
                           padding: EdgeInsets.all(6),
                         ),
                         Padding(
