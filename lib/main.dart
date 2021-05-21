@@ -7,6 +7,8 @@ import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/service/auth.dart';
 import 'package:vizilog/wrapper.dart';
 
+import 'wrapper.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
           title: 'ViziLog',
           theme:
               ThemeData(primarySwatch: Colors.blue, fontFamily: 'Montserrat'),
-          home: ImportantDetails()),
+          home: Wrapper()),
     );
   }
 }
