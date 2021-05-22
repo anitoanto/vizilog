@@ -128,7 +128,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                       }
                     },
                     animationDuration: Duration(milliseconds: 900),
-                  )
+                  ),
                 ],
               ),
               SizedBox(
