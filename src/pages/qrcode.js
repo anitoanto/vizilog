@@ -7,19 +7,26 @@ import QRCode from "react-qr-code";
 
 export default function Qrcode() {
   const [msg, setMsg] = useState("");
+  const [shopName, setShopName] = useState("");
+  var uid;
   useEffect(async () => {
     let check = firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        setMsg(user.uid);
+        uid = user.id;
+        setMsg(user.uid + "," + shopName);
       } else {
         navigate("/login");
       }
     });
-  }, []);
+  });
 
   function logout() {
     firebase.auth().signOut();
     navigate("/");
+  }
+
+  function changeQR(e) {
+    setShopName(e.target.value);
   }
   return (
     <>
@@ -27,6 +34,12 @@ export default function Qrcode() {
         <h2 className="head">Admin Panel</h2>
         <div className="content">
           <div>
+            <input
+              type="text"
+              className={"shopename"}
+              placeholder="Shop name"
+              onChange={(e) => changeQR(e)}
+            />
             <h1>Share this QR Code for logging your customers.</h1>
             <br />
             {msg != "" ? (

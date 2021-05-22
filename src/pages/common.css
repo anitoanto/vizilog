@@ -39,3 +39,21 @@
 .head2 {
   margin-left: 10%;
 }
+
+.shopename {
+  width: 70%;
+  font-size: 32;
+  line-height: 30px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .nav > ul {
+    flex-direction: column;
+  }
+  .content {
+    flex-direction: column;
+    padding: 100px 40px;
+  }
+}
