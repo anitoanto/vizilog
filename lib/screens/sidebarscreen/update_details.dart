@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+
 import 'package:vizilog/screens/authUserscreen/auth_user_home.dart';
 
 class UpdateDetails extends StatefulWidget {
@@ -9,6 +11,7 @@ class UpdateDetails extends StatefulWidget {
 class _UpdateDetailsState extends State<UpdateDetails> {
   @override
   Widget build(BuildContext context) {
+    bool isSwitched = true;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -66,9 +69,9 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                         ),
                       ),
                     ),
-                    /* Positioned(
+                    Positioned(
                       bottom: 0,
-                      right: 0,
+                      right: 10,
                       child: Container(
                         height: 40,
                         width: 40,
@@ -80,12 +83,14 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                           ),
                           color: Colors.blue,
                         ),
-                        child: Icon(
-                          Icons.edit,
+                        child: IconButton(
+                          padding: EdgeInsets.only(top: 2),
+                          icon: Icon(Icons.edit),
                           color: Colors.white,
+                          onPressed: () {},
                         ),
                       ),
-                    ),*/
+                    ),
                   ],
                 ),
               ),
@@ -95,6 +100,37 @@ class _UpdateDetailsState extends State<UpdateDetails> {
               buildTextField("full name", "User"),
               buildTextField("Address", "Sample Address soe Cusat"),
               buildTextField("Phone Number", "+9100000000088"),
+              buildTextField("Pincode", "00000"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Are you Vaccinated?",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  LiteRollingSwitch(
+                    iconOn: Icons.check_rounded,
+                    iconOff: Icons.highlight_off,
+                    colorOn: Colors.blue,
+                    colorOff: Colors.grey.shade900,
+                    textOff: 'No',
+                    textOn: 'Yes',
+                    textSize: 15,
+                    onChanged: (bool state) {
+                      if (state) {
+                        print('On');
+                      } else {
+                        print('Off');
+                      }
+                    },
+                    animationDuration: Duration(milliseconds: 900),
+                  )
+                ],
+              ),
               SizedBox(
                 height: 35,
               ),
