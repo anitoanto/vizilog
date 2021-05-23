@@ -101,36 +101,6 @@ class _UpdateDetailsState extends State<UpdateDetails> {
               buildTextField("Address", "Sample Address soe Cusat"),
               buildTextField("Phone Number", "+9100000000088"),
               buildTextField("Pincode", "00000"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Are you Vaccinated?",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  LiteRollingSwitch(
-                    iconOn: Icons.check_rounded,
-                    iconOff: Icons.highlight_off,
-                    colorOn: Colors.blue,
-                    colorOff: Colors.grey.shade900,
-                    textOff: 'No',
-                    textOn: 'Yes',
-                    textSize: 15,
-                    onChanged: (bool state) {
-                      if (state) {
-                        print('On');
-                      } else {
-                        print('Off');
-                      }
-                    },
-                    animationDuration: Duration(milliseconds: 900),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 35,
               ),
