@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => UpdateDetails()));
               },
             ),
-            ListTile(
+            /*ListTile(
               leading: Icon(Icons.view_list),
               title: Text(
                 'Recent Visits',
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               onTap: null,
-            ),
+            ),*/
             ListTile(
               leading: Icon(Icons.logout),
               title: Text(
