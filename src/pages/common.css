@@ -48,6 +48,20 @@
   margin-bottom: 20px;
 }
 
+.nameTile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 20px;
+  font-size: 20;
+  justify-content: space-between;
+  width: 50%;
+  background-color: #7480ff75;
+  margin: 10px;
+  border-radius: 8px;
+  align-items: center;
+}
+
 @media screen and (max-width: 800px) {
   .nav > ul {
     flex-direction: column;

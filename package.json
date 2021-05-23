@@ -15,6 +15,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "firebase": "^8.6.1",
     "gatsby": "^3.4.1",
     "gatsby-plugin-firebase": "*",
