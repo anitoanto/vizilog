@@ -10,6 +10,8 @@ class UpdateDetails extends StatefulWidget {
 
 class _UpdateDetailsState extends State<UpdateDetails> {
   String _name;
+  String _address;
+  String _pincode;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
