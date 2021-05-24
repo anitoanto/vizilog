@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:vizilog/pages/models/user_details.dart';
@@ -8,8 +9,8 @@ import 'package:vizilog/service/auth.dart';
 import '../home/home.dart';
 
 class ImportantDetails extends StatefulWidget {
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  final String  emailController;
+  final String passwordController;
 
   const ImportantDetails(
       {Key key, this.emailController, this.passwordController})
@@ -29,6 +30,15 @@ class _ImportantDetailsState extends State<ImportantDetails> {
   TextEditingController _addressController = TextEditingController();
   TextEditingController _pincodeController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+  @override
+  void dispose() {
+    _addressController.dispose();
+    _pincodeController.dispose();
+    _nameController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -131,15 +141,16 @@ class _ImportantDetailsState extends State<ImportantDetails> {
 
                               dynamic result =
                                   await _auth.registerEmailAndPassword(
-                                email: widget.emailController.text,
-                                password: widget.passwordController.text,
+                                email: widget.emailController,
+                                password: widget.passwordController,
                                 vaccinationStatus: vaccinationStatus,
                                 address: _addressController.text,
                                 pincode: _pincodeController.text,
                                 name: _nameController.text,
                               );
-                              print(widget.emailController.text);
-                              print(widget.passwordController.text);
+
+                              print(widget.emailController);
+                              print(widget.passwordController);
 
                               if (result == null) {
                                 setState(() {

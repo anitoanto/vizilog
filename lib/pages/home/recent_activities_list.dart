@@ -35,9 +35,27 @@ class _RecentActivitiesListState extends State<RecentActivitiesList> {
   }
 
   getSortEntries(List<ShopEntries> entries) {
-    List<ShopEntries> userEntries;
-    for (int i = 0; i <= entries.length; i++) {}
-    entries.forEach((element) {});
+    List<ShopEntries> userEntriers;
+    for (int i = 0; i < entries.length; i++) {
+      // user.reload();
+      if (user.uid != entries[i].customerId) {
+        print("user uid");
+        print(user.uid);
+        print("the other one");
+        print(entries[i].customerId);
+        setState(() {
+          entries.removeAt(i);
+        });
+      }
+    }
+    for (int i = 0; i < entries.length; i++) {
+      if (user.uid != entries[i].customerId)
+        setState(() {
+          entries.removeAt(i);
+        });
+    }
+    print("user $entries");
+
     entries != null
         ? entries.sort(
             (a, b) => a.timestamp.toDate().compareTo(b.timestamp.toDate()))
@@ -71,7 +89,7 @@ class _RecentActivitiesListState extends State<RecentActivitiesList> {
         : Container(
             child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: entries.length,
+                itemCount: sortedEntries.length ?? 0,
                 itemBuilder: (context, index) {
                   return Container(
                       margin: EdgeInsets.symmetric(vertical: 2),
@@ -83,9 +101,11 @@ class _RecentActivitiesListState extends State<RecentActivitiesList> {
                           )),
                       child: ListTile(
                         leading: CircleAvatar(
-                          child: Text(sortedEntries[index]
-                              .merchantName[0]
-                              .toUpperCase()),
+                          backgroundColor: Color(0xff233975),
+                          child: Text(
+                            sortedEntries[index].merchantName[0].toUpperCase(),
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                         title: Text(sortedEntries[index].merchantName),
                         subtitle: Text(

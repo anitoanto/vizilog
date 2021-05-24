@@ -1,5 +1,6 @@
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,8 +26,12 @@ class _ScanQRState extends State<ScanQR> {
       querySnapshot.docs.forEach((result) {
         print("Userdetails");
         print(result.data());
-        userId = result.data()["uid"];
-        userName = result.data()["name"];
+        setState(() {
+          // userId = result.data()["uid"] ?? '';
+          userId = FirebaseAuth.instance.currentUser.uid;
+          // userName = result.data()["name"] ?? '';
+          userName = FirebaseAuth.instance.currentUser.displayName;
+        });
       });
     });
     super.initState();
