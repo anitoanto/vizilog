@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vizilog/pages/home/home.dart';
+import 'package:vizilog/pages/models/user_details.dart';
 
 class UpdateDetails extends StatefulWidget {
   @override
@@ -7,8 +9,11 @@ class UpdateDetails extends StatefulWidget {
 }
 
 class _UpdateDetailsState extends State<UpdateDetails> {
+  String _name;
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserDetails>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -92,9 +97,25 @@ class _UpdateDetailsState extends State<UpdateDetails> {
               SizedBox(
                 height: 15,
               ),
-              buildTextField("full name", "User"),
-              buildTextField("Address", "Sample Address soe Cusat"),
-              buildTextField("Phone Number", "+9100000000088"),
+              Form(
+                child: Column(
+                  children: [
+                    _fullName(user.name),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _address(user.address),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _pincode(user.pincode),
+                  ],
+                ),
+              ),
+              //buildTextField("full name", "${user.name}"),
+              //buildTextField("Address", "${user.address}"),
+              //buildTextField("Pincode", "${user.pincode}"),
+              //buildTextField("Phone Number", "+9100000000088"),
               SizedBox(
                 height: 35,
               ),
@@ -125,7 +146,10 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      formkey.currentState.save();
+                      print(_name);
+                    },
                     child: Text(
                       "SAVE",
                       style: TextStyle(
@@ -160,6 +184,54 @@ class _UpdateDetailsState extends State<UpdateDetails> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _fullName(String hinttext) {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Full Name',
+        hintText: '${hinttext}',
+        hintStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onSubmitted: (String value) {
+        _name = value;
+      },
+    );
+  }
+
+  Widget _address(String hinttext) {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Address',
+        hintText: '${hinttext}',
+        hintStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onSubmitted: (String value) {
+        _name = value;
+      },
+    );
+  }
+
+  Widget _pincode(String hinttext) {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Pincode',
+        hintText: '${hinttext}',
+        hintStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      onSubmitted: (String value) {
+        _name = value;
+      },
     );
   }
 }
