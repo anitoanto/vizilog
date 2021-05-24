@@ -5,7 +5,7 @@ import 'package:vizilog/pages/authenticate/sign_in.dart';
 import 'package:vizilog/pages/authenticate/sign_up.dart';
 import 'package:vizilog/pages/models/user_details.dart';
 
-import './pages/home.dart';
+import 'home/home.dart';
 
 class Wrapper extends StatelessWidget {
   @override

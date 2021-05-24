@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vizilog/pages/authenticate/important_details.dart';
+
 import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/service/auth.dart';
-import 'package:vizilog/wrapper.dart';
+import 'package:vizilog/pages/wrapper.dart';
 
-import 'wrapper.dart';
+import 'pages/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

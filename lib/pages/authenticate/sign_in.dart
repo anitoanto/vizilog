@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:vizilog/pages/authenticate/sign_up.dart';
 import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/pages/widgets/input_text_field.dart';
+import 'package:vizilog/pages/widgets/loading.dart';
 import 'package:vizilog/service/auth.dart';
+import 'package:vizilog/service/error_handling/auth_exception_handler.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class _SignInState extends State<SignIn> {
     _passwordController.dispose();
     super.dispose();
   }
+
+  bool loading = false;
 
   Color buttonColor = Color(0xff233975);
   UserDetails user = UserDetails();
@@ -78,25 +82,31 @@ class _SignInState extends State<SignIn> {
                           style: ElevatedButton.styleFrom(primary: buttonColor),
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
+                              setState(() {
+                                loading = true;
+                              });
                               dynamic result =
                                   await _auth.signInWithEmailAndPassword(
                                       _emailController.text,
                                       _passwordController.text);
-                              if (result != null)
+                              if (result !=null)
                                 print("SignIn");
                               else {
+                                setState(() {
+                                  loading = false;
+                                });
                                 print("error SignIn");
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(_auth.errorSignIn)));
+                                    SnackBar(content: Text(AuthExceptionHandler.generateExceptionMessage(result))));
                               }
                               print(result.uid);
                             }
                           },
-                          child: Text("SIGN IN",
+                          child: loading==false?Text("SIGN IN",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16)),
+                                  fontSize: 16)):Loading(),
                           // child: ListTile(
                           //   leading: Image.asset(
                           //     "assets/images/signin_logo.png",

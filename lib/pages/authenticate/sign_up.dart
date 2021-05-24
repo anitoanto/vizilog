@@ -72,8 +72,11 @@ class _SignUpState extends State<SignUp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ImportantDetails()));
-                           
+                                    builder: (context) => ImportantDetails(
+                                          emailController: _emailController,
+                                          passwordController:
+                                              _passwordController,
+                                        )));
                           }
                         },
                         child: Text("SIGN UP",

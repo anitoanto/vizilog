@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import 'package:vizilog/pages/home.dart';
+import 'package:vizilog/pages/home/home.dart';
 
 class OnBoardingPage extends StatelessWidget {
   @override

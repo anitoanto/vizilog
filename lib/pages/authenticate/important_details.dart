@@ -2,9 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/pages/widgets/input_text_field.dart';
+import 'package:vizilog/pages/widgets/loading.dart';
 import 'package:vizilog/service/auth.dart';
 
+import '../home/home.dart';
+
 class ImportantDetails extends StatefulWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const ImportantDetails(
+      {Key key, this.emailController, this.passwordController})
+      : super(key: key);
   @override
   _ImportantDetailsState createState() => _ImportantDetailsState();
 }
@@ -14,10 +23,12 @@ class _ImportantDetailsState extends State<ImportantDetails> {
   Color buttonColor = Color(0xff233975);
   UserDetails user = UserDetails();
   String error = '';
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _pincodeController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -46,16 +57,23 @@ class _ImportantDetailsState extends State<ImportantDetails> {
                 SizedBox(
                   height: height / 8,
                 ),
+                InputTextField(
+                  controller: _nameController,
+                  labelText: "Name",
+                ),
+                SizedBox(
+                  height: height / 20,
+                ),
 
                 InputTextField(
-                  controller: _emailController,
+                  controller: _addressController,
                   labelText: "Address",
                 ),
                 SizedBox(
                   height: height / 20,
                 ),
                 InputTextField(
-                  controller: _passwordController,
+                  controller: _pincodeController,
                   labelText: "Pincode",
                 ),
                 SizedBox(
@@ -107,22 +125,43 @@ class _ImportantDetailsState extends State<ImportantDetails> {
                           style: ElevatedButton.styleFrom(primary: buttonColor),
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
+                              setState(() {
+                                loading = true;
+                              });
+
                               dynamic result =
                                   await _auth.registerEmailAndPassword(
-                                      _emailController.text,
-                                      _passwordController.text);
+                                email: widget.emailController.text,
+                                password: widget.passwordController.text,
+                                vaccinationStatus: vaccinationStatus,
+                                address: _addressController.text,
+                                pincode: _pincodeController.text,
+                                name: _nameController.text,
+                              );
+                              print(widget.emailController.text);
+                              print(widget.passwordController.text);
 
                               if (result == null) {
+                                setState(() {
+                                  loading = false;
+                                });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text(_auth.errorSignUp)));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
                               }
                             }
                           },
-                          child: Text("TAKE ME IN!",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16)),
+                          child: loading == false
+                              ? Text("TAKE ME IN!",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))
+                              : Loading(),
                         )),
                     Text(
                       error,

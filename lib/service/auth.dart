@@ -2,17 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vizilog/pages/models/user_details.dart';
+import 'package:vizilog/service/database.dart';
+import 'package:vizilog/service/error_handling/auth_exception_handler.dart';
+import 'package:vizilog/service/error_handling/auth_result_status.dart';
 
 class AuthService {
   String errorSignIn = "";
   String errorSignUp = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  AuthResultStatus _status;
   UserDetails _userFromFirebase(User user) {
-    return user != null ? UserDetails(uid: user.uid) : null;
+    return user != null ? UserDetails(uid: user.uid,name: user.displayName) : null;
   }
 
   Stream<UserDetails> get user {
-    return _auth.authStateChanges().map((User user) => _userFromFirebase(user));
+    return _auth.authStateChanges().map(_userFromFirebase);
   }
 
   Future signInAnon() async {
@@ -23,6 +27,7 @@ class AuthService {
 
   Future signOut() async {
     try {
+      print("signout");
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());
@@ -30,11 +35,25 @@ class AuthService {
     }
   }
 
-  Future registerEmailAndPassword(String email, String password) async {
+  Future registerEmailAndPassword(
+      {String email,
+      String password,
+      String address,
+      String pincode,
+      bool vaccinationStatus,
+      String name}) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User user = userCredential.user;
+      await DatabaseService(uid: user.uid).updateUserData(
+        name: name,
+        address: address,
+        email: email,
+        pincode: pincode,
+        vaccinationStatus: vaccinationStatus,
+        shop: ['shop1', 'shop2', 'shop3'],
+      );
       return _userFromFirebase(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -57,14 +76,7 @@ class AuthService {
       User user = userCredential.user;
       return _userFromFirebase(user);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-        errorSignIn = "No user found for that email";
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-         errorSignIn = "Wrong password provided for that user";
-        
-      }
+      _status = AuthExceptionHandler.handleException(e);
     } catch (error) {
       print(error.toString());
       return null;

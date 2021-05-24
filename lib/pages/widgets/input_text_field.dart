@@ -26,7 +26,7 @@ class _InputTextFieldState extends State<InputTextField> {
         obscureText: widget.labelText == "Password" ? isObsecure : false,
         validator: widget.labelText == "Email"
             ? (val) => val.isEmpty ? 'Enter an email' : null
-            : (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
+            : widget.labelText=="Password"?(val) => val.length < 6 ? 'Enter a password 6+ chars long' : null:null,
         decoration: InputDecoration(
           suffixIcon: widget.labelText == "Password"
               ? IconButton(
