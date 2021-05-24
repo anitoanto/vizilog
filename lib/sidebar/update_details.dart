@@ -9,9 +9,9 @@ class UpdateDetails extends StatefulWidget {
 }
 
 class _UpdateDetailsState extends State<UpdateDetails> {
-  String _name;
-  String _address;
-  String _pincode;
+  String name;
+  String address;
+  String pincode;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                     ),
                     onPressed: () {
                       formkey.currentState.save();
-                      print(_name);
+                      print(name);
                     },
                     child: Text(
                       "SAVE",
@@ -200,7 +200,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
         ),
       ),
       onSubmitted: (String value) {
-        _name = value;
+        name = value;
       },
     );
   }
@@ -216,7 +216,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
         ),
       ),
       onSubmitted: (String value) {
-        _name = value;
+        address = value;
       },
     );
   }
@@ -232,7 +232,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
         ),
       ),
       onSubmitted: (String value) {
-        _name = value;
+        pincode = value;
       },
     );
   }
