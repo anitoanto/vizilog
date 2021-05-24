@@ -73,9 +73,9 @@ class _SignUpState extends State<SignUp> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ImportantDetails(
-                                          emailController: _emailController,
+                                          emailController: _emailController.text,
                                           passwordController:
-                                              _passwordController,
+                                              _passwordController.text,
                                         )));
                           }
                         },

@@ -57,7 +57,7 @@ class DatabaseService {
       String address,
       String pincode,
       bool vaccinationStatus,
-      List<String> shop}) async {
+      }) async {
     return await userCollection.doc(uid).set({
       'uid': uid,
       'email': email,
@@ -65,7 +65,7 @@ class DatabaseService {
       'address': address,
       'pincode': pincode,
       'vaccinationStatus': vaccinationStatus,
-      'shop': shop,
+      
     });
   }
 }

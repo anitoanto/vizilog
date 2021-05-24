@@ -12,7 +12,9 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   AuthResultStatus _status;
   UserDetails _userFromFirebase(User user) {
-    return user != null ? UserDetails(uid: user.uid,name: user.displayName) : null;
+    return user != null
+        ? UserDetails(uid: user.uid, name: user.displayName)
+        : null;
   }
 
   Stream<UserDetails> get user {
@@ -46,13 +48,15 @@ class AuthService {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User user = userCredential.user;
+      await userCredential.user.updateProfile(displayName: name);
+      await user.reload();
       await DatabaseService(uid: user.uid).updateUserData(
         name: name,
         address: address,
         email: email,
         pincode: pincode,
         vaccinationStatus: vaccinationStatus,
-        shop: ['shop1', 'shop2', 'shop3'],
+        // shop: ['shop1', 'shop2', 'shop3'],
       );
       return _userFromFirebase(user);
     } on FirebaseAuthException catch (e) {
