@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vizilog/pages/home/home.dart';
 import 'package:vizilog/pages/models/user_details.dart';
+import 'package:vizilog/pages/widgets/input_text_field.dart';
+import 'package:vizilog/service/auth.dart';
 
 class UpdateDetails extends StatefulWidget {
   @override
@@ -9,12 +11,18 @@ class UpdateDetails extends StatefulWidget {
 }
 
 class _UpdateDetailsState extends State<UpdateDetails> {
+  final AuthService _auth = AuthService();
   String name;
   String address;
   String pincode;
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController _addressController = TextEditingController();
+  TextEditingController _pincodeController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    bool loading = false;
     final user = Provider.of<UserDetails>(context);
     return Scaffold(
       appBar: AppBar(
@@ -96,21 +104,49 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
+
               Form(
                 child: Column(
                   children: [
-                    _fullName(user.name),
                     SizedBox(
-                      height: 20,
+                      height: height / 15,
                     ),
-                    _address(user.address),
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16.0)),
+                        labelText: 'Full Name',
+                        hintText: '${user.name}',
+                      ),
+                    ),
                     SizedBox(
-                      height: 20,
+                      height: height / 20,
                     ),
-                    _pincode(user.pincode),
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16.0)),
+                        labelText: 'Address',
+                        hintText: '${user.address}',
+                      ),
+                    ),
+                    SizedBox(
+                      height: height / 20,
+                    ),
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16.0)),
+                        labelText: 'Pincode',
+                        hintText: '${user.pincode}',
+                      ),
+                    ),
+                    SizedBox(
+                      height: height / 18,
+                    ),
                   ],
                 ),
               ),
@@ -148,10 +184,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () {
-                      formkey.currentState.save();
-                      print(name);
-                    },
+                    onPressed: () {},
                     child: Text(
                       "SAVE",
                       style: TextStyle(
@@ -186,54 +219,6 @@ class _UpdateDetailsState extends State<UpdateDetails> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _fullName(String hinttext) {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Full Name',
-        hintText: '${hinttext}',
-        hintStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onSubmitted: (String value) {
-        name = value;
-      },
-    );
-  }
-
-  Widget _address(String hinttext) {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Address',
-        hintText: '${hinttext}',
-        hintStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onSubmitted: (String value) {
-        address = value;
-      },
-    );
-  }
-
-  Widget _pincode(String hinttext) {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'Pincode',
-        hintText: '${hinttext}',
-        hintStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onSubmitted: (String value) {
-        pincode = value;
-      },
     );
   }
 }
