@@ -8,10 +8,10 @@
 ## Team Id
 BFH/recTKMyCAFfvH3KEo/2021
 ## Link to product walkthrough
-[link to video]
+[https://www.loom.com/share/e8353d18e7764fd7b7c62f2ef57042e3]
 ## How it Works ?
 1. The User can Download the App where as the merchant can use the web app. The merchant can sigin in on the web app [https://vizlog-9200d.web.app/] , by the link provided and create an account there. When he enters to the web app he can input his shop name then he will get a QR code . Print that and display infront of the shop, The User before enterd to the shop he want to be scan this QR code ,it will send the name , address, vaccine status and date and time of visit to the web app. Also user can see there recent visits on the home screen. 
-2. Embed video of project demo
+
 ## Libraries used
   React ,
   splashscreen,
