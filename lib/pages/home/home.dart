@@ -19,8 +19,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   void initState() {
+    
     fetchUserDetails();
-
     super.initState();
   }
 

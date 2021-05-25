@@ -20,7 +20,6 @@ class _UpdateDetailsState extends State<UpdateDetails> {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance.collection("user").doc(firebaseUser.uid).update(
         {"name": name, "address": address, "pincode": pincode}).then((_) {
-          
       print("success!");
     });
   }
@@ -89,13 +88,6 @@ class _UpdateDetailsState extends State<UpdateDetails> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: ListView(
             children: [
-              // Text(
-              //   "Update Details",
-              //   style: TextStyle(
-              //     fontSize: 25,
-              //     fontWeight: FontWeight.w500,
-              //   ),
-              // ),
               SizedBox(
                 height: 15,
               ),
@@ -127,30 +119,9 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                         ),
                       ),
                     ),
-                    /* Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          color: Colors.blue,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),*/
                   ],
                 ),
               ),
-
               Form(
                 key: _formKey,
                 child: Column(
@@ -203,10 +174,6 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                   ],
                 ),
               ),
-              //buildTextField("full name", "${user.name}"),
-              //buildTextField("Address", "${user.address}"),
-              //buildTextField("Pincode", "${user.pincode}"),
-              //buildTextField("Phone Number", "+9100000000088"),
               SizedBox(
                 height: 35,
               ),
@@ -231,23 +198,22 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                       ),
                     ),
                   ),
-                  RaisedButton(
-                    color: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        primary: Color(0xff233975),
+                        padding: EdgeInsets.symmetric(horizontal: 50)),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         updateUserDetails(_nameController.text,
                             _addressController.text, _pincodeController.text);
-                             ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("Updated Succesfully")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Updated Succesfully")));
 
-                            Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
                       }
                     },
                     child: Text(

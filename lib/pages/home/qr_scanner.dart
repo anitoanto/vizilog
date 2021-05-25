@@ -72,6 +72,7 @@ class _ScanQRState extends State<ScanQR> {
   }
 
   buildScanner() async {
+    
     String codeSanner = await BarcodeScanner.scan(); //barcode scnner
     setState(() {
       qrCodeResult = codeSanner;
