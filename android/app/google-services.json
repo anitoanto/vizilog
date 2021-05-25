@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "270071839064-324ifursjucmsp4u7unu9flt1krkovra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vizilog",
+            "certificate_hash": "07cb7610c3a2aa4b8007c63b376390972bc8588c"
+          }
+        },
+        {
           "client_id": "270071839064-btbbpol85hhtau7behbqim2md983k0g6.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -65,7 +65,7 @@ class AuthService {
         errorSignUp = "The password provided is too weak";
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-        errorSignUp = "he account already exists for that email";
+        errorSignUp = "The account already exists for that email";
       }
     } catch (e) {
       print(e.toString());
@@ -80,12 +80,39 @@ class AuthService {
       User user = userCredential.user;
       return _userFromFirebase(user);
     } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+        errorSignUp = "The password provided is too weak";
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+        errorSignUp = "The account already exists for that email";
+      }
       _status = AuthExceptionHandler.handleException(e);
     } catch (error) {
       print(error.toString());
       return null;
     }
   }
+    Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
+
+
+
+
 
   //google signin
 
@@ -94,34 +121,34 @@ class AuthService {
   String email;
   String imageUrl;
 
-  Future<String> signInWithGoogle() async {
-    // await Firebase.initializeApp();
-    final GoogleSignInAccount gSAC = await googleSignIn.signIn();
-    final GoogleSignInAuthentication gSA = await gSAC.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: gSA.accessToken,
-      idToken: gSA.idToken,
-    );
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-    final User user = authResult.user;
-    if (bool != null) {
-      assert(user.email != null);
-      assert(user.displayName != null);
-      assert(user.photoURL != null);
-      name = user.displayName;
-      email = user.email;
-      imageUrl = user.photoURL;
-      if (name.contains(" ")) {
-        name = name.substring(0, name.indexOf(" "));
-      }
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
-      print('sign in with google sucessed $user');
-      return '$user';
-    }
-    return null;
-  }
+  // Future<String> signInWithGoogle() async {
+  //   // await Firebase.initializeApp();
+  //   final GoogleSignInAccount gSAC = await googleSignIn.signIn();
+  //   final GoogleSignInAuthentication gSA = await gSAC.authentication;
+  //   final AuthCredential credential = GoogleAuthProvider.credential(
+  //     accessToken: gSA.accessToken,
+  //     idToken: gSA.idToken,
+  //   );
+  //   final UserCredential authResult =
+  //       await _auth.signInWithCredential(credential);
+  //   final User user = authResult.user;
+  //   if (bool != null) {
+  //     assert(user.email != null);
+  //     assert(user.displayName != null);
+  //     assert(user.photoURL != null);
+  //     name = user.displayName;
+  //     email = user.email;
+  //     imageUrl = user.photoURL;
+  //     if (name.contains(" ")) {
+  //       name = name.substring(0, name.indexOf(" "));
+  //     }
+  //     assert(!user.isAnonymous);
+  //     assert(await user.getIdToken() != null);
+  //     final User currentUser = _auth.currentUser;
+  //     assert(user.uid == currentUser.uid);
+  //     print('sign in with google sucessed $user');
+  //     return '$user';
+  //   }
+  //   return null;
+  // }
 }
