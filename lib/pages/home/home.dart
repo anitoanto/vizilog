@@ -7,7 +7,6 @@ import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/pages/widgets/custom_button.dart';
 import 'package:vizilog/service/auth.dart';
 import 'package:vizilog/service/database.dart';
-import 'package:vizilog/sidebar/update_details.dart';
 import '../prefs.dart';
 import './recent_activities_list.dart';
 import '../models/shop_entries.dart';
@@ -104,56 +103,13 @@ class _HomeState extends State<Home> {
                           Container(
                             width: 100,
                             height: 100,
-                            margin: EdgeInsets.only(top: 40, bottom: 10),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Nuy39yqcMREaqhbbevS-YgHaHa%26pid%3DApi&f=1'),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '$name',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white,
+                            margin: EdgeInsets.only(
+                              top: 40,
                             ),
                           )
                         ],
                       ),
                     ),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.update),
-                    title: Text(
-                      'Update Details',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (builder) => UpdateDetails()));
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text(
-                      "Log Out",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    onTap: () async {
-                      await _authService.signOut();
-                    },
                   ),
                 ],
               ),
