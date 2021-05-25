@@ -13,7 +13,7 @@ class AuthService {
   AuthResultStatus _status;
   UserDetails _userFromFirebase(User user) {
     return user != null
-        ? UserDetails(uid: user.uid, name: user.displayName)
+        ? UserDetails(uid: user.uid, name: user.displayName,imageURL: user.photoURL)
         : null;
   }
 

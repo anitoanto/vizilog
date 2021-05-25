@@ -26,7 +26,7 @@ class _UpdateDetailsState extends State<UpdateDetails> {
     final user = Provider.of<UserDetails>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Color(0xff233975),
         elevation: 1,
         leading: IconButton(
             icon: Icon(
