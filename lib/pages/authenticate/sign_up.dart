@@ -84,20 +84,7 @@ class _SignUpState extends State<SignUp> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16)),
-                        // child: ListTile(
-                        //   leading: Image.asset(
-                        //     "assets/images/signin_logo.png",
-                        //     height: height / 24,
-                        //     width: height / 24,
-                        //   ),
-                        //   title: Text(
-                        //     "SIGN IN VIA GOOGLE",
-                        //     style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: 16),
-                        //   ),
-                        // ),
+                     
                       )),
                   SizedBox(
                     height: height / 30,

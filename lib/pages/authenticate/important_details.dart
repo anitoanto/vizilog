@@ -9,7 +9,7 @@ import 'package:vizilog/service/auth.dart';
 import '../home/home.dart';
 
 class ImportantDetails extends StatefulWidget {
-  final String  emailController;
+  final String emailController;
   final String passwordController;
 
   const ImportantDetails(
@@ -30,14 +30,7 @@ class _ImportantDetailsState extends State<ImportantDetails> {
   TextEditingController _addressController = TextEditingController();
   TextEditingController _pincodeController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
-  @override
-  void dispose() {
-    _addressController.dispose();
-    _pincodeController.dispose();
-    _nameController.dispose();
-
-    super.dispose();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +51,7 @@ class _ImportantDetailsState extends State<ImportantDetails> {
                   "Important Details",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                 ),
-                // Spacer(),
-                // Image.asset(
-                //   "assets/images/signin.png",
-                //   height: height / 4,
-                //   width: width,
-                // ),
+              
                 SizedBox(
                   height: height / 8,
                 ),

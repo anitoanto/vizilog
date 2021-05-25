@@ -37,13 +37,10 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          // height: height / 1.25,
           padding: EdgeInsets.all(36),
           child: Form(
             key: _formKey,
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Welcome to VizLog",
@@ -52,7 +49,6 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: height / 10,
                 ),
-
                 Image.asset(
                   "assets/images/signin.png",
                   height: height / 4,
@@ -61,58 +57,13 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: height / 8,
                 ),
-
-                // InputTextField(
-                //   controller: _emailController,
-                //   labelText: "Email",
-                // ),
-                // SizedBox(
-                //   height: height / 20,
-                // ),
-                // InputTextField(
-                //   controller: _passwordController,
-                //   labelText: "Password",
-                // ),
-                // SizedBox(
-                //   height: height / 14,
-                // ),
-
                 Center(
                     child: Column(
                   children: [
                     Container(
                         width: width,
                         height: height / 16,
-                        // child: ElevatedButton(
-                        //   style: ElevatedButton.styleFrom(primary: buttonColor),
-                        //   onPressed: () async {
-                        //     if (_formKey.currentState.validate()) {
-                        //       setState(() {
-                        //         loading = true;
-                        //       });
-                        //       dynamic result =
-                        //           await _auth.signInWithEmailAndPassword(
-                        //               _emailController.text,
-                        //               _passwordController.text);
-                        //       if (result !=null)
-                        //         print("SignIn");
-                        //       else {
-                        //         setState(() {
-                        //           loading = false;
-                        //         });
-                        //         print("error SignIn");
-                        //         ScaffoldMessenger.of(context).showSnackBar(
-                        //             SnackBar(content: Text(AuthExceptionHandler.generateExceptionMessage(result))));
-                        //       }
-                        //       print(result.uid);
-                        //     }
-                        //   },
-                        //   child: loading==false?Text("SIGN IN",
-                        //       style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontWeight: FontWeight.bold,
-                        //
-                        //      fontSize: 16)):Loading(),)
+                     
                         child: CustomButton(
                             child: ListTile(
                               leading: Image.asset(
