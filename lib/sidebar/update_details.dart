@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vizilog/pages/home/home.dart';
 import 'package:vizilog/pages/models/user_details.dart';
 import 'package:vizilog/pages/widgets/input_text_field.dart';
 import 'package:vizilog/service/auth.dart';
+import 'package:vizilog/service/database.dart';
 
 class UpdateDetails extends StatefulWidget {
   @override
@@ -11,7 +14,46 @@ class UpdateDetails extends StatefulWidget {
 }
 
 class _UpdateDetailsState extends State<UpdateDetails> {
-  final AuthService _auth = AuthService();
+  User user = FirebaseAuth.instance.currentUser;
+  AuthService _auth = AuthService();
+  updateUserDetails(String name, String address, String pincode) {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance.collection("user").doc(firebaseUser.uid).update(
+        {"name": name, "address": address, "pincode": pincode}).then((_) {
+          
+      print("success!");
+    });
+  }
+
+  fetchUserDetails() {
+    FirebaseFirestore.instance
+        .collection("user")
+        .where("uid", isEqualTo: user.uid)
+        .snapshots()
+        .listen((value) {
+      // setState(() {
+      //   entries = value.docs;
+      // });
+      print(value.docs.length);
+      value.docs.forEach((result) {
+        print("USER");
+        setState(() {
+          name = result['name'];
+          address = result['address'];
+          pincode = result['pincode'];
+        });
+        print(result['address']);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    fetchUserDetails();
+    super.initState();
+  }
+
+  DatabaseService _databaseService = DatabaseService();
   String name;
   String address;
   String pincode;
@@ -22,16 +64,19 @@ class _UpdateDetailsState extends State<UpdateDetails> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    bool loading = false;
+
     final user = Provider.of<UserDetails>(context);
+    // print("Address");
+    // print(user.imageURL);
     return Scaffold(
       appBar: AppBar(
+        title: Text('Update Details'),
         backgroundColor: Color(0xff233975),
         elevation: 1,
         leading: IconButton(
             icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.blue,
+              Icons.arrow_back,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(
@@ -44,13 +89,13 @@ class _UpdateDetailsState extends State<UpdateDetails> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: ListView(
             children: [
-              Text(
-                "Update Details",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              // Text(
+              //   "Update Details",
+              //   style: TextStyle(
+              //     fontSize: 25,
+              //     fontWeight: FontWeight.w500,
+              //   ),
+              // ),
               SizedBox(
                 height: 15,
               ),
@@ -76,8 +121,9 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Nuy39yqcMREaqhbbevS-YgHaHa%26pid%3DApi&f=1'),
+                          image: NetworkImage(user.imageURL != null
+                              ? user.imageURL
+                              : 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Nuy39yqcMREaqhbbevS-YgHaHa%26pid%3DApi&f=1'),
                         ),
                       ),
                     ),
@@ -106,42 +152,49 @@ class _UpdateDetailsState extends State<UpdateDetails> {
               ),
 
               Form(
+                key: _formKey,
                 child: Column(
                   children: [
                     SizedBox(
                       height: height / 15,
                     ),
                     TextFormField(
+                      validator: (val) => val.isEmpty ? 'Enter a name' : null,
                       controller: _nameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0)),
                         labelText: 'Full Name',
-                        hintText: '${user.name}',
+                        hintText: '$name',
                       ),
                     ),
                     SizedBox(
                       height: height / 20,
                     ),
                     TextFormField(
-                      controller: _nameController,
+                      validator: (val) =>
+                          val.isEmpty ? 'Enter an address' : null,
+                      controller: _addressController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0)),
                         labelText: 'Address',
-                        hintText: '${user.address}',
+                        hintText: '$address',
                       ),
                     ),
                     SizedBox(
                       height: height / 20,
                     ),
                     TextFormField(
-                      controller: _nameController,
+                      keyboardType: TextInputType.numberWithOptions(),
+                      validator: (val) =>
+                          val.isEmpty ? 'Enter an pincode' : null,
+                      controller: _pincodeController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0)),
                         labelText: 'Pincode',
-                        hintText: '${user.pincode}',
+                        hintText: '$pincode',
                       ),
                     ),
                     SizedBox(
@@ -184,7 +237,19 @@ class _UpdateDetailsState extends State<UpdateDetails> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        updateUserDetails(_nameController.text,
+                            _addressController.text, _pincodeController.text);
+                             ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("Updated Succesfully")));
+
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()));
+                      }
+                    },
                     child: Text(
                       "SAVE",
                       style: TextStyle(

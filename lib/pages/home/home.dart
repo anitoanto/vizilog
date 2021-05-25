@@ -18,78 +18,49 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  AuthService _authService = AuthService();
-  List<String> activities;
-  String name = "";
-  List<Map> entries;
-
-  @override
   void initState() {
-    User user = FirebaseAuth.instance.currentUser;
-    print(user.uid);
-    print(user.displayName);
-    // sortingQuery(user.uid);
+    fetchUserDetails();
 
-    // FirebaseFirestore.instance
-    //     .collection("shopEntry")
-    //     .snapshots()
-    //     .listen((result) {
-    //   result.docs.forEach((result) {
-    //     if (result.data()['uid'] == user.uid) {
-    //       setState(() {
-    //         name = result.data()['name'];
-    //       });
-    //     }
-    //     print(result.data());
-    //   });
-    // });
-    name = user.displayName;
-    FirebaseFirestore.instance
-        .collection("user")
-        .doc(user.uid)
-        .get()
-        .then((value) {
-      print(value.data());
-      // setState(() {
-      //   name = value.data()['name'];
-      // });
-    });
     super.initState();
   }
 
-  sortingQuery(String uid) async {
-    // var result = await FirebaseFirestore.instance
-    //     .collection("shopEntries")
-    //     .where("uid", isEqualTo: uid)
-    //     .orderBy("timestamp", descending: true)
-    //     .get();
+  fetchUserDetails() {
     FirebaseFirestore.instance
-        .collection("shopEntries")
-        .get()
-        .then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        for (int i = 0; i < result.data().length; i++) {
-          setState(() {
-            entries[i] = result.data();
-          });
-        }
+        .collection("user")
+        .where("uid", isEqualTo: user.uid)
+        .snapshots()
+        .listen((value) {
+      // setState(() {
+      //   entries = value.docs;
+      // });
+      print(value.docs.length);
+      value.docs.forEach((result) {
+        print("USER");
+        setState(() {
+          name = result['name'];
+        });
+        print(result['address']);
       });
-    });
-
-    entries.forEach((element) {
-      print("Entries Printing");
-      print(element['merchantID']);
     });
   }
 
+  AuthService _authService = AuthService();
+  List<String> activities;
+  String name;
+  List<Map> entries;
+  User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return StreamProvider<List<ShopEntries>>.value(
         initialData: null,
         value: DatabaseService().entries,
         builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
+              title: Text("Vizilog"),
+              backgroundColor: Color(0xff233975),
               elevation: 0,
             ),
             drawer: Drawer(
@@ -112,8 +83,9 @@ class _HomeState extends State<Home> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Nuy39yqcMREaqhbbevS-YgHaHa%26pid%3DApi&f=1'),
+                                image: NetworkImage(user.photoURL != null
+                                    ? user.photoURL
+                                    : 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.Nuy39yqcMREaqhbbevS-YgHaHa%26pid%3DApi&f=1'),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -169,10 +141,10 @@ class _HomeState extends State<Home> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Welcome, $name",
-                        style: TextStyle(fontSize: 36),
-                      ),
+                      // Text(
+                      //   "Welcome, $name",
+                      //   style: TextStyle(fontSize: 36),
+                      // ),
                       CustomButton(
                           onPressed: () {
                             Navigator.push(
@@ -194,11 +166,15 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                           )),
-                      ElevatedButton(
-                          onPressed: () async {
-                            await _authService.signOut();
-                          },
-                          child: Text("SignOut")),
+                      SizedBox(
+                        height: height / 15,
+                      ),
+
+                      // ElevatedButton(
+                      //     onPressed: () async {
+                      //       await _authService.signOut();
+                      //     },
+                      //     child: Text("SignOut")),
                       Text(
                         "Recent Activities",
                         style: TextStyle(fontSize: 26),

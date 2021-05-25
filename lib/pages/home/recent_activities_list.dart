@@ -70,25 +70,6 @@ class _RecentActivitiesListState extends State<RecentActivitiesList> {
   getSortEntries(List entries) {
     print("Recived");
     print(entries);
-    // for (int i = 0; i < entries.length; i++) {
-    //   // user.reload();
-    //   if (user.uid != entries[i].customerId) {
-    //     print("user uid");
-    //     print(user.uid);
-    //     print("the other one");
-    //     print(entries[i].customerId);
-    //     setState(() {
-    //       entries.removeAt(i);
-    //     });
-    //   }
-    // }
-    // for (int i = 0; i < entries.length; i++) {
-    //   if (user.uid != entries[i].customerId)
-    //     setState(() {
-    //       entries.removeAt(i);
-    //     });
-    // }
-    // print("user $entries");
 
     entries != null
         ? entries.sort((a, b) =>
@@ -110,13 +91,6 @@ class _RecentActivitiesListState extends State<RecentActivitiesList> {
     final entries = Provider.of<List<ShopEntries>>(context);
     print(entries);
 
-    // entries.forEach((element) {
-    //   print(element.customerId);
-    //   print(element.customerName);
-    //   print(element.merchantId);
-    //   print(element.merchantName);
-    //   print(element.timestamp.toDate());
-    // });
     return entries == null
         ? Loading()
         : Container(
