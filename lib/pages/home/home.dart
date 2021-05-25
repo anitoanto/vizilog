@@ -88,6 +88,33 @@ class _HomeState extends State<Home> {
         value: DatabaseService().entries,
         builder: (context, snapshot) {
           return Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+            ),
+            drawer: Drawer(
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    color: Theme.of(context).primaryColor,
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 100,
+                            height: 100,
+                            margin: EdgeInsets.only(
+                              top: 40,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Container(
