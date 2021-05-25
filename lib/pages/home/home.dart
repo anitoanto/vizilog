@@ -42,15 +42,16 @@ class _HomeState extends State<Home> {
     //     print(result.data());
     //   });
     // });
+    name = user.displayName;
     FirebaseFirestore.instance
         .collection("user")
         .doc(user.uid)
         .get()
         .then((value) {
       print(value.data());
-      setState(() {
-        name = value.data()['name'];
-      });
+      // setState(() {
+      //   name = value.data()['name'];
+      // });
     });
     super.initState();
   }
